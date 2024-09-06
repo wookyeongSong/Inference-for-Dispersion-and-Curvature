@@ -5,7 +5,7 @@ source("~/src/DC_mainfunctions.R")
 ##########################################
 
 ## Get a list of all CSV files in a directory
-file_list <- list.files(path = "/Users/wookyeongsong/Desktop/WK_UCD/Research/Data/airport data", pattern = "\\.csv$", full.names = TRUE)
+file_list <- list.files(path = "~/airport data", pattern = "\\.csv$", full.names = TRUE)
 
 ## Initialize an empty list to store data frames
 data_list <- list()
