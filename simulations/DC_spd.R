@@ -35,7 +35,7 @@ Vf.spd = c(cov.curv.fit.Frob$Vf, cov.curv.fit.LE$Vf, cov.curv.fit.Root$Vf, cov.c
 
 par(mar=c(5,5,3,2))
 plot(Vf.spd/Vm.spd,col='black',xlab = "Metrics",ylab = "Ratio of Variances",xaxt='n',ylim=c(0.7,1.3),cex=2,cex.axis=2,cex.lab=2,pch=19)
-axis(side = 1, at = 1:6, labels = c("Frob", "log-E", "p-Frob", "Chol","AIR", "PSS"), cex.axis=2)
+axis(side = 1, at = 1:6, labels = c("Frob", "log-E", "p-Frob", "Chol","AIR", "BW"), cex.axis=2)
 legend("topleft",legend = c(expression(V[F]~"/"~V[M])),fill=c("black"),cex=2)
 
 ## Plot confidence region for the joint distribution of metric and Frechet variance with PSS metric and AIRM metric
@@ -59,7 +59,7 @@ abline(coef = c(0,1),lty=2)
 legend("topleft", legend = c(expression(alpha~"= 0.01"),expression(alpha~"= 0.05"),expression(alpha~"= 0.1")),lty=1,lwd=2, col = col,cex=2)
 
 par(mar=c(5,5,3,2))
-plot(ellipse(cov.est.PSS,center = c(Vm.est.PSS,Vf.est.PSS),level=0.99),type='l',col=col[1],main="Space of SPD matrix with PSS metric",cex.lab=2,cex.axis=2,cex.main=2.5,lwd=2,xlab=expression(V[M]), ylab = expression(V[F]),xlim=c(4500,9500),ylim=c(4500,9500))
+plot(ellipse(cov.est.PSS,center = c(Vm.est.PSS,Vf.est.PSS),level=0.99),type='l',col=col[1],main="Space of SPD matrix with BW metric",cex.lab=2,cex.axis=2,cex.main=2.5,lwd=2,xlab=expression(V[M]), ylab = expression(V[F]),xlim=c(4500,9500),ylim=c(4500,9500))
 points(Vm.est.PSS,Vf.est.PSS,pch=16)
 lines(ellipse(cov.est.PSS,center = c(Vm.est.PSS,Vf.est.PSS),level=0.95),col=col[2],lwd=2)
 lines(ellipse(cov.est.PSS,center = c(Vm.est.PSS,Vf.est.PSS),level=0.90),col=col[3],lwd=2)
