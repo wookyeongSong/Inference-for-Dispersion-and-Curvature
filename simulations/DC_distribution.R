@@ -1,6 +1,8 @@
-source("~/src/DC_mainfunctions.R")
+source("~/Desktop/WK_UCD/Research/varianceproj/src/DC_mainfunctions.R")
 
-## Data Generation
+#######################
+### Data Generation ###
+#######################
 base_cov_mat = matrix(c(4,0,0,1), nrow = 2)
 
 set.seed(999)
@@ -24,27 +26,86 @@ cov_mat[[k+2]] = base_right
 min_idx = k+1
 max_idx = k+2
 
+
+################################################################################
+### Sensitivity Analysis of Input distance: Wasserstein, Fisher-Rao distance ###
+################################################################################
+
+
 ## Calculate the distance
-dist.mat = matrix(0,nrow=(k+2),ncol=(k+2))
+dist.mat.Wass = matrix(0,nrow=(k+2),ncol=(k+2))
 for(row in 1:(k+2)){
   for(col in 1:(k+2)){
     
     if(row == col){
-      dist.mat[row,col] = 0
+      dist.mat.Wass[row,col] = 0
       next
     }
     
-    dist.mat[row,col] =  wasserstein_distance(cov_mat[[row]], cov_mat[[col]])
+    dist.mat.Wass[row,col] =  wasserstein_distance(cov_mat[[row]], cov_mat[[col]])
     
   }
 }
 
-gauss_wass_func = intrinsic.curv.est(distmat = dist.mat, L = 6, pop=TRUE)
+gauss_wass_func.Wass = intrinsic.curv.est(distmat = dist.mat.Wass, L = 6, pop=TRUE)
 
 ## Plot confidence region for the joint distribution of metric and Frechet variance when we have spherical data with geodesic distance
-cov.est.wass = gauss_wass_func$cov.normalized
-Vm.est.wass = gauss_wass_func$Vm
-Vf.est.wass = gauss_wass_func$Vf
+cov.est.wass = gauss_wass_func.Wass$cov.normalized
+Vm.est.wass = gauss_wass_func.Wass$Vm
+Vf.est.wass = gauss_wass_func.Wass$Vf
+
+isomap_result <- isomap(dist.mat.Wass, k = 6, ndim = 1)
+isomap_rep = as.vector(isomap_result$points)
+
+## Calculate the distance
+dist.mat.FR = matrix(0,nrow=(k+2),ncol=(k+2))
+for(row in 1:(k+2)){
+  for(col in 1:(k+2)){
+    
+    if(row == col){
+      dist.mat.FR[row,col] = 0
+      next
+    }
+    
+    dist.mat.FR[row,col] =  fisher_rao_distance(cov_mat[[row]], cov_mat[[col]])
+    
+  }
+}
+
+gauss_wass_func.FR = intrinsic.curv.est(distmat = dist.mat.FR, L = 6, pop=TRUE)
+
+## Plot confidence region for the joint distribution of metric and Frechet variance when we have spherical data with geodesic distance
+cov.est.wass.FR = gauss_wass_func.FR$cov.normalized
+Vm.est.wass.FR = gauss_wass_func.FR$Vm
+Vf.est.wass.FR = gauss_wass_func.FR$Vf
+
+
+
+t=2
+rgPal <- colorRampPalette(c('cadetblue','coral3'))
+col = rgPal((t+1))
+par(mfrow = c(1,2), mar=c(5,5,3,2),oma = c(0, 1, 5, 0))
+
+plot(ellipse(cov.est.wass,center = c(Vm.est.wass,Vf.est.wass),level=0.99),type='l',col=col[1],lwd=2,xlab=expression(V[paste(italic(I),",",italic(M))]), ylab = expression(V[paste(italic(I),",",italic(F))]),cex.main=2,cex.lab=2,cex.axis=2,main="Input distance: Wasserstein Metric")
+points(Vm.est.wass,Vf.est.wass,pch=16)
+lines(ellipse(cov.est.wass,center = c(Vm.est.wass,Vf.est.wass),level=0.95),col=col[2],lwd=2)
+lines(ellipse(cov.est.wass,center = c(Vm.est.wass,Vf.est.wass),level=0.90),col=col[3],lwd=2)
+abline(coef = c(0,1),lty=2)
+legend("topleft", legend = c(expression(alpha~"= 0.01"),expression(alpha~"= 0.05"),expression(alpha~"= 0.1")),lty=1,lwd=2, col = col,cex=2)
+
+plot(ellipse(cov.est.wass.FR,center = c(Vm.est.wass.FR,Vf.est.wass.FR),level=0.99),type='l',col=col[1],lwd=2,xlab=expression(V[paste(italic(I),",",italic(M))]), ylab = expression(V[paste(italic(I),",",italic(F))]),cex.main=2,cex.lab=2,cex.axis=2,main="Input distance: Fisher-Rao Metric")
+points(Vm.est.wass.FR,Vf.est.wass.FR,pch=16)
+lines(ellipse(cov.est.wass.FR,center = c(Vm.est.wass.FR,Vf.est.wass.FR),level=0.95),col=col[2],lwd=2)
+lines(ellipse(cov.est.wass.FR,center = c(Vm.est.wass.FR,Vf.est.wass.FR),level=0.90),col=col[3],lwd=2)
+abline(coef = c(0,1),lty=2)
+legend("topleft", legend = c(expression(alpha~"= 0.01"),expression(alpha~"= 0.05"),expression(alpha~"= 0.1")),lty=1,lwd=2, col = col,cex=2)
+
+mtext("Distributional Data Simulation", side = 3, font = 2, outer = TRUE, line = 1, cex = 2.5)
+
+
+#############################################################
+### Curvature Inference with Wasserstein ambient distance ###
+#############################################################
 
 t=2
 rgPal <- colorRampPalette(c('cadetblue','coral3'))

@@ -1,13 +1,12 @@
-source("~/src/DC_mainfunctions.R")
-source("~/DC_simulations_datagen.R")
+source("~/Desktop/WK_UCD/Research/varianceproj/src/DC_mainfunctions.R")
+source("~/Desktop/WK_UCD/Research/varianceproj/DC_simulations_datagen.R")
 
 #########################################
-#### Simulations 3: Point Cloud Data ####
+#### Simulations 1: Point Cloud Data ####
 #########################################
 
 #########################################
 # B1: Positively curved manifold
-
 ## Number of samples 
 k = 1000
 
@@ -57,7 +56,7 @@ k = 1000
 df.pc.neg = dat.gen.pc.neg(k)
 
 ## Estimate intrinsic curvature and test statistics (main function)
-curv.fit.pc.neg = intrinsic.curv.est(df.pc.neg, L = 4)
+curv.fit.pc.neg = intrinsic.curv.est(df.pc.neg, L = 10)
 
 ## Confidence intervals for the intrinsic curvatures rho_{I}
 # alpha = 0.01 (-0.098, -0.072)
