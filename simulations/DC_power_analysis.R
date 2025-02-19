@@ -1,5 +1,5 @@
-source("~/Desktop/WK_UCD/Research/varianceproj/src/DC_mainfunctions.R")
-source("~/Desktop/WK_UCD/Research/varianceproj/DC_simulations_datagen.R")
+source("~/src/DC_mainfunctions.R")
+source("~/DC_simulations_datagen.R")
 
 #########################
 #### Power Analysis  ####

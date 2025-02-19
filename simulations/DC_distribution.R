@@ -1,4 +1,4 @@
-source("~/Desktop/WK_UCD/Research/varianceproj/src/DC_mainfunctions.R")
+source("~/src/DC_mainfunctions.R")
 
 #######################
 ### Data Generation ###

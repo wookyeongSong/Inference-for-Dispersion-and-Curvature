@@ -2,7 +2,7 @@ source("~/src/DC_mainfunctions.R")
 
 library("jsonlite")
 
-path = "/Users/wookyeongsong/Desktop/WK_UCD/Research/Data/GaitData/"
+path = "path to data"
 ## Data available at https://github.com/deepcharles/gait-data, 
 ## Reference: Truong et al. 2019, 'A data set for the study of human locomotion with inertial measurements units', Image Processing On Line 9, 381–390."
 
