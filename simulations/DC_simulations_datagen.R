@@ -1,4 +1,4 @@
-## Generate simulation data from point cloud on positively curved manifold
+
 dat.gen.pc.pos = function(k) {
   
   # k : the number of samples from point cloud on spherical manifold
@@ -98,6 +98,82 @@ dat.gen.sph = function(k){
   
 }
 
+## Generate simulation data from point cloud on positively curved manifold
+dat.gen.power.anal = function(k, curv) {
+  
+  # k : the number of samples from point cloud on spherical manifold
+  # No error
+  
+  if ( curv < 0 | curv >2){
+    stop("error")
+  }
+  
+  if (curv == 0){
+    
+    z = rep(0, k)
+    x = runif(k, min = -pi/(4*sqrt(2)), max = pi/(4*sqrt(2)))
+    y = runif(k, min = -pi/(4*sqrt(2)), max = pi/(4*sqrt(2)))
+    df = as.matrix(data.frame(x,y,z))
+    L = 50
+    
+  } else {
+    
+    radi = 1/sqrt(curv)
+    z <- runif(k,min=1/sqrt(curv)*cos(pi * sqrt(curv) / 4),max =1/sqrt(curv))          # uniform on [0, 1]
+    theta <- runif(k, min = 0 , max = 2*pi)    # uniform on [0, 2pi]
+    x <- cos(theta)*sqrt(1/curv-z^2)  # based on angle
+    y <- sin(theta)*sqrt(1/curv-z^2) 
+    
+    df = as.matrix(data.frame(x,y,z))
+    L = 20
+  }
+  
+  return(list(df= df, L = L))
+  
+}
+
+
+dat.gen.high.dim = function(k, p, noise0){
+  
+  # k : the number of samples from point cloud on spherical manifold
+  theta = pi * runif(k) / 2
+  psi = 2 * pi * runif(k)
+  
+  noise = noise0
+  z <- cos(theta) + rnorm(k, mean = 0, sd = noise )
+  x <- sin(theta)*cos(psi)  + rnorm(k, mean = 0, sd =noise)
+  y <- sin(theta)*sin(psi)  + rnorm(k, mean = 0, sd = noise)
+  
+  
+  extra = matrix(rnorm((p-3)*k, mean = 0, sd = noise), nrow = k, ncol = p-3)
+  df.sph = as.matrix(data.frame(x,y,z))
+  
+  df = cbind(df.sph,extra)
+  
+  return(df)
+  
+}
+
+dat.gen.high.dim.fixed = function(k, p, noise0){
+  
+  # k : the number of samples from point cloud on spherical manifold
+  theta = pi * runif(k) / 2
+  psi = 2 * pi * runif(k)
+  
+  noise = noise0/sqrt(p)
+  z <- cos(theta) + rnorm(k, mean = 0, sd = noise )
+  x <- sin(theta)*cos(psi)  + rnorm(k, mean = 0, sd =noise)
+  y <- sin(theta)*sin(psi)  + rnorm(k, mean = 0, sd = noise)
+  
+  
+  extra = matrix(rnorm((p-3)*k, mean = 0, sd = noise), nrow = k, ncol = p-3)
+  df.sph = as.matrix(data.frame(x,y,z))
+  
+  df = cbind(df.sph,extra)
+  
+  return(df)
+  
+}
 
 
 
