@@ -2,7 +2,7 @@ source("~/src/DC_mainfunctions.R")
 
 library("jsonlite")
 
-path = "path of data"
+path = "/Users/wookyeongsong/Desktop/WK_UCD/Research/Data/GaitData/"
 ## Data available at https://github.com/deepcharles/gait-data, 
 ## Reference: Truong et al. 2019, 'A data set for the study of human locomotion with inertial measurements units', Image Processing On Line 9, 381–390."
 
@@ -67,39 +67,199 @@ for(i in 1:length(ortho_idx)){
   
 }
 
+###################################################################################################
+### Sensitivity Analysis of Input distance: Bures-Wasserstein, Cholesky, and Frobenius distance ###
+###################################################################################################
 
-## Generate distance matrix of healthy and orthopedic group
+## Generate Bures-Wasserstein distance matrix of healthy and orthopedic group
 healthy.k = length(healthy_idx)
 ortho.k = length(ortho_idx)
 
-healthy.dist.mat = matrix(0,nrow=healthy.k,ncol=healthy.k)
+healthy.dist.mat.BW = matrix(0,nrow=healthy.k,ncol=healthy.k)
 for(row in 1:healthy.k){
   for(col in 1:healthy.k){
     
     if(row == col){
-      healthy.dist.mat[row,col] = 0
+      healthy.dist.mat.BW[row,col] = 0
       next
     }
     
-    healthy.dist.mat[row,col] =  wasserstein_distance(healthy.gait.list[[row]], healthy.gait.list[[col]])
+    healthy.dist.mat.BW[row,col] =  wasserstein_distance(healthy.gait.list[[row]], healthy.gait.list[[col]])
     
   }
 }
 
-ortho.dist.mat = matrix(0,nrow=ortho.k,ncol=ortho.k)
+ortho.dist.mat.BW = matrix(0,nrow=ortho.k,ncol=ortho.k)
 for(row in 1:ortho.k){
   for(col in 1:ortho.k){
     
     if(row == col){
-      ortho.dist.mat[row,col] = 0
+      ortho.dist.mat.BW[row,col] = 0
       next
     }
     
-    ortho.dist.mat[row,col] =  wasserstein_distance(ortho.gait.list[[row]], ortho.gait.list[[col]])
+    ortho.dist.mat.BW[row,col] =  wasserstein_distance(ortho.gait.list[[row]], ortho.gait.list[[col]])
     
   }
 }
 
+
+## Generate Frobenius distance matrix of healthy and orthopedic group
+healthy.dist.mat.Fb = matrix(0,nrow=healthy.k,ncol=healthy.k)
+for(row in 1:healthy.k){
+  for(col in 1:healthy.k){
+    
+    if(row == col){
+      healthy.dist.mat.Fb[row,col] = 0
+      next
+    }
+    
+    healthy.dist.mat.Fb[row,col] = sqrt(sum((healthy.gait.list[[row]]-healthy.gait.list[[col]])^2)) 
+    
+  }
+}
+
+ortho.dist.mat.Fb = matrix(0,nrow=ortho.k,ncol=ortho.k)
+for(row in 1:ortho.k){
+  for(col in 1:ortho.k){
+    
+    if(row == col){
+      ortho.dist.mat.Fb[row,col] = 0
+      next
+    }
+    
+    ortho.dist.mat.Fb[row,col] =  sqrt(sum((ortho.gait.list[[row]]-ortho.gait.list[[col]])^2)) 
+    
+  }
+}
+
+
+## Generate Cholesky distance matrix of healthy and orthopedic group
+healthy.dist.mat.Chol = matrix(0,nrow=healthy.k,ncol=healthy.k)
+for(row in 1:healthy.k){
+  for(col in 1:healthy.k){
+    
+    if(row == col){
+      healthy.dist.mat.Chol[row,col] = 0
+      next
+    }
+    
+    healthy.dist.mat.Chol[row,col] = sqrt(sum((chol(healthy.gait.list[[row]])-chol(healthy.gait.list[[col]]))^2)) 
+    
+  }
+}
+
+
+ortho.dist.mat.Chol = matrix(0,nrow=ortho.k,ncol=ortho.k)
+for(row in 1:ortho.k){
+  for(col in 1:ortho.k){
+    
+    if(row == col){
+      ortho.dist.mat.Chol[row,col] = 0
+      next
+    }
+    
+    ortho.dist.mat.Chol[row,col] =  sqrt(sum((chol(ortho.gait.list[[row]])-chol(ortho.gait.list[[col]]))^2)) 
+    
+  }
+}
+
+healthy.intrin.curv.BW = intrinsic.curv.est(distmat = healthy.dist.mat.BW, L = 4)
+ortho.intrin.curv.BW = intrinsic.curv.est(distmat = ortho.dist.mat.BW, L = 4)
+
+cov.est.healthy.BW = healthy.intrin.curv.BW$cov.normalized
+Vm.est.healthy.BW = healthy.intrin.curv.BW$Vm
+Vf.est.healthy.BW = healthy.intrin.curv.BW$Vf
+
+cov.est.ortho.BW = ortho.intrin.curv.BW$cov.normalized
+Vm.est.ortho.BW = ortho.intrin.curv.BW$Vm
+Vf.est.ortho.BW = ortho.intrin.curv.BW$Vf
+
+healthy.intrin.curv.Fb = intrinsic.curv.est(distmat = healthy.dist.mat.Fb, L = 4)
+ortho.intrin.curv.Fb = intrinsic.curv.est(distmat = ortho.dist.mat.Fb, L = 4)
+
+cov.est.healthy.Fb = healthy.intrin.curv.Fb$cov.normalized
+Vm.est.healthy.Fb = healthy.intrin.curv.Fb$Vm
+Vf.est.healthy.Fb = healthy.intrin.curv.Fb$Vf
+
+cov.est.ortho.Fb = ortho.intrin.curv.Fb$cov.normalized
+Vm.est.ortho.Fb = ortho.intrin.curv.Fb$Vm
+Vf.est.ortho.Fb = ortho.intrin.curv.Fb$Vf
+
+healthy.intrin.curv.Chol = intrinsic.curv.est(distmat = healthy.dist.mat.Chol, L = 4)
+ortho.intrin.curv.Chol = intrinsic.curv.est(distmat = ortho.dist.mat.Chol, L = 4)
+
+cov.est.healthy.Chol = healthy.intrin.curv.Chol$cov.normalized
+Vm.est.healthy.Chol = healthy.intrin.curv.Chol$Vm
+Vf.est.healthy.Chol = healthy.intrin.curv.Chol$Vf
+
+cov.est.ortho.Chol = ortho.intrin.curv.Chol$cov.normalized
+Vm.est.ortho.Chol = ortho.intrin.curv.Chol$Vm
+Vf.est.ortho.Chol = ortho.intrin.curv.Chol$Vf
+
+##### Figure
+t=2
+rgPal <- colorRampPalette(c('cadetblue','coral3'))
+col = rgPal((t+1))
+
+par(mfrow = c(1,2), mar=c(5,5,3,2),oma = c(0, 1, 5, 0))
+plot(ellipse(cov.est.healthy.BW,center = c(Vm.est.healthy.BW,Vf.est.healthy.BW),level=0.99), xlim=c(400, 1900), ylim = c(400,1900), type='l',col=col[1] ,lwd=2,xlab=expression(V[paste(italic(I),",",italic(M))]), ylab = expression(V[paste(italic(I),",",italic(F))]),cex.main=2,cex.lab=2,cex.axis=2,main="Healthy Group")
+points(Vm.est.healthy.BW,Vf.est.healthy.BW,pch=16)
+lines(ellipse(cov.est.healthy.BW,center = c(Vm.est.healthy.BW,Vf.est.healthy.BW),level=0.95),col=col[2],lwd=2)
+lines(ellipse(cov.est.healthy.BW,center = c(Vm.est.healthy.BW,Vf.est.healthy.BW),level=0.90),col=col[3],lwd=2)
+abline(coef = c(0,1),lty=2)
+legend("topleft", legend = c(expression(alpha~"= 0.01"),expression(alpha~"= 0.05"),expression(alpha~"= 0.1")),lty=1,lwd=2, col = col,cex=2)
+
+plot(ellipse(cov.est.ortho.BW,center = c(Vm.est.ortho.BW,Vf.est.ortho.BW),level=0.99), xlim=c(200, 1700), ylim = c(200,1700), type='l',col=col[1] ,lwd=2,xlab=expression(V[paste(italic(I),",",italic(M))]), ylab = expression(V[paste(italic(I),",",italic(F))]),cex.main=2,cex.lab=2,cex.axis=2,main="Orthopedic Group")
+points(Vm.est.ortho.BW,Vf.est.ortho.BW,pch=16)
+lines(ellipse(cov.est.ortho.BW,center = c(Vm.est.ortho.BW,Vf.est.ortho.BW),level=0.95),col=col[2],lwd=2)
+lines(ellipse(cov.est.ortho.BW,center = c(Vm.est.ortho.BW,Vf.est.ortho.BW),level=0.90),col=col[3],lwd=2)
+abline(coef = c(0,1),lty=2)
+legend("topleft", legend = c(expression(alpha~"= 0.01"),expression(alpha~"= 0.05"),expression(alpha~"= 0.1")),lty=1,lwd=2, col = col,cex=2)
+
+mtext("Input distance: Bures-Wasserstein metric", font = 2, side = 3, outer = TRUE, line = 1, cex = 2.5)
+
+par(mfrow = c(1,2), mar=c(5,5,3,2),oma = c(0, 1, 5, 0))
+plot(ellipse(cov.est.healthy.Fb,center = c(Vm.est.healthy.Fb,Vf.est.healthy.Fb),level=0.99), xlim=c(0, 50000000), ylim = c(0,50000000), type='l',col=col[1] ,lwd=2,xlab=expression(V[paste(italic(I),",",italic(M))]), ylab = expression(V[paste(italic(I),",",italic(F))]),cex.main=2,cex.lab=2,cex.axis=2,main="Healthy Group")
+points(Vm.est.healthy.Fb,Vf.est.healthy.Fb,pch=16)
+lines(ellipse(cov.est.healthy.Fb,center = c(Vm.est.healthy.Fb,Vf.est.healthy.Fb),level=0.95),col=col[2],lwd=2)
+lines(ellipse(cov.est.healthy.Fb,center = c(Vm.est.healthy.Fb,Vf.est.healthy.Fb),level=0.90),col=col[3],lwd=2)
+abline(coef = c(0,1),lty=2)
+legend("topleft", legend = c(expression(alpha~"= 0.01"),expression(alpha~"= 0.05"),expression(alpha~"= 0.1")),lty=1,lwd=2, col = col,cex=2)
+
+plot(ellipse(cov.est.ortho.Fb,center = c(Vm.est.ortho.Fb,Vf.est.ortho.Fb),level=0.99), xlim=c(-5000000, 39000000), ylim = c(-5000000,39000000), type='l',col=col[1] ,lwd=2,xlab=expression(V[paste(italic(I),",",italic(M))]), ylab = expression(V[paste(italic(I),",",italic(F))]),cex.main=2,cex.lab=2,cex.axis=2,main="Orthopedic Group")
+points(Vm.est.ortho.Fb,Vf.est.ortho.Fb,pch=16)
+lines(ellipse(cov.est.ortho.Fb,center = c(Vm.est.ortho.Fb,Vf.est.ortho.Fb),level=0.95),col=col[2],lwd=2)
+lines(ellipse(cov.est.ortho.Fb,center = c(Vm.est.ortho.Fb,Vf.est.ortho.Fb),level=0.90),col=col[3],lwd=2)
+abline(coef = c(0,1),lty=2)
+legend("topleft", legend = c(expression(alpha~"= 0.01"),expression(alpha~"= 0.05"),expression(alpha~"= 0.1")),lty=1,lwd=2, col = col,cex=2)
+
+mtext("Input distance: Frobenius metric", font = 2, side = 3, outer = TRUE, line = 1, cex = 2.5)
+
+par(mfrow = c(1,2), mar=c(5,5,3,2),oma = c(0, 1, 5, 0))
+plot(ellipse(cov.est.healthy.Chol,center = c(Vm.est.healthy.Chol,Vf.est.healthy.Chol),level=0.99), xlim=c(800, 2800), ylim = c(800,2800), , type='l',col=col[1] ,lwd=2,xlab=expression(V[paste(italic(I),",",italic(M))]), ylab = expression(V[paste(italic(I),",",italic(F))]),cex.main=2,cex.lab=2,cex.axis=2,main="Healthy Group")
+points(Vm.est.healthy.Chol,Vf.est.healthy.Chol,pch=16)
+lines(ellipse(cov.est.healthy.Chol,center = c(Vm.est.healthy.Chol,Vf.est.healthy.Chol),level=0.95),col=col[2],lwd=2)
+lines(ellipse(cov.est.healthy.Chol,center = c(Vm.est.healthy.Chol,Vf.est.healthy.Chol),level=0.90),col=col[3],lwd=2)
+abline(coef = c(0,1),lty=2)
+legend("topleft", legend = c(expression(alpha~"= 0.01"),expression(alpha~"= 0.05"),expression(alpha~"= 0.1")),lty=1,lwd=2, col = col,cex=2)
+
+plot(ellipse(cov.est.ortho.Chol,center = c(Vm.est.ortho.Chol,Vf.est.ortho.Chol),level=0.99), xlim=c(200, 1900), ylim = c(200,1900), type='l',col=col[1] ,lwd=2,xlab=expression(V[paste(italic(I),",",italic(M))]), ylab = expression(V[paste(italic(I),",",italic(F))]),cex.main=2,cex.lab=2,cex.axis=2,main="Orthopedic Group")
+points(Vm.est.ortho.Chol,Vf.est.ortho.Chol,pch=16)
+lines(ellipse(cov.est.ortho.Chol,center = c(Vm.est.ortho.Chol,Vf.est.ortho.Chol),level=0.95),col=col[2],lwd=2)
+lines(ellipse(cov.est.ortho.Chol,center = c(Vm.est.ortho.Chol,Vf.est.ortho.Chol),level=0.90),col=col[3],lwd=2)
+abline(coef = c(0,1),lty=2)
+legend("topleft", legend = c(expression(alpha~"= 0.01"),expression(alpha~"= 0.05"),expression(alpha~"= 0.1")),lty=1,lwd=2, col = col,cex=2)
+
+mtext("Input distance: Cholesky metric", font = 2, side = 3, outer = TRUE, line = 1, cex = 2.5)
+
+
+###################################################################
+### Curvature Inference with Bures-Wasserstein ambient distance ###
+###################################################################
+
+healthy.dist.mat = healthy.dist.mat.BW
+ortho.dist.mat = ortho.dist.mat.BW
 
 ## Intrinsic curvature of healthy and orthopedic group
 healthy.intrin.curv = intrinsic.curv.est(distmat = healthy.dist.mat, L = 4)
