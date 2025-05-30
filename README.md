@@ -3,16 +3,28 @@
 
 ### General Information
 
-This repository contains the implementation for the paper "Inference for Dispersion and Curvature of Random Objects" which were run using R 4.3.1. 
+This repository contains the implementation for the paper **"Inference for Dispersion and Curvature of Random Objects"** which were run using R 4.3.1. It provides two one-click *wrapper* scripts that recreate every table and figure in the main text and the online supplement.
+
+### Wrapper R scripts
 
 It contains two wrapper R scripts:
 *	`DC_wrapper_main.R`: Executes all analyses presented in the main paper and reproduces all the Tables 1-2 and corresponding Figures 2-7, which are saved as PDF files.
 *	`DC_wrapper_supplement.R`: Executes all additional simulations and real data analyses in the Supplement of the paper and reproduces the Table S.1 and the corresponding Figures S.1-S.10, which are saved as PDF files.
 
-`src` Folder: 
+For running the wrapper R scripts, 
+1. Clone or download the repository and set your R working directory to the project root.
+2. In an R console: source("DC_wrapper_main.R") or
+- or from a terminal: Rscript DC_wrapper_main.R
+  
+## Supplementary results
+source("DC_wrapper_supplement.R")
+
+the working directory needs to be set to the directory where you saved this repository. It can be run `source("DC_wrapper_main.R")` in R console or `Rscript DC_wrapper_main.R` in terminal.
+
+In `src` Folder: 
 * `/DC_mainfunctions.R`: Contains all main functions necessary for the simulations and real data analysis.
 
-`Figures_code` Folder: This folder contains R scripts that reproduce all figures in the main manuscript and supplementary materials.
+In `Figures_code` Folder: This folder contains R scripts that reproduce all figures in the main manuscript and supplementary materials.
 * `Figure2.R`-`Figure7.R`: Generate Figure 2 through Figure 7 in main manuscript. The figures are automatically saved as PDF files.
 * `FigureS1.R`-`FigureS10.R`: Generate Figure S.1 through Figure S.10 in the Supplement. The figures are automatically saved as PDF files.
 
