@@ -17,10 +17,10 @@ For running the wrapper R scripts,
   
 ## Details
 
-In `src` Folder: 
-* `/DC_mainfunctions.R`: Contains all main functions necessary for the simulations and real data analysis.
+In `src/` Folder: 
+* `DC_mainfunctions.R`: Contains all main functions necessary for the simulations and real data analysis.
 
-In `Figures_code` Folder: This folder contains R scripts that reproduce all figures in the main manuscript and supplement.
+In `Figures_code/` Folder: This folder contains R scripts that reproduce all figures in the main manuscript and supplement.
 * `Figure2.R`-`Figure7.R`: Generate Figure 2 through Figure 7 in main manuscript. The figures are automatically saved as PDF files.
 * `FigureS1.R`-`FigureS10.R`: Generate Figure S.1 through Figure S.10 in the Supplement. The figures are automatically saved as PDF files.
 
