@@ -5,7 +5,6 @@
 # Figure reproduced    : Figure S.2
 # -------------------------------------------------------------------------
 
-
 ## Import main functions
 source("src/DC_mainfunctions.R")
 source("simulations/DC_simulations_datagen.R")
