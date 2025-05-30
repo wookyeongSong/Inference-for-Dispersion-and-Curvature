@@ -13,7 +13,9 @@ library(fdadensity)
 library(ggplot2)
 library(fields)
 library(scatterplot3d)
-
+library(jsonlite)
+library(dslabs)
+library(frechet)
 
 
 ## Obtain ambient distance from data frame 
@@ -327,6 +329,15 @@ functional.curv.est = function(qSup, qin){
   
 }
 
+fisher_rao_distance <- function(Sigma1, Sigma2) {
+  # Compute the generalized eigenvalues (eigenvalues of Sigma1^(-1) Sigma2)
+  eigen_vals <- eigen(solve(Sigma1) %*% Sigma2)$values
+  
+  # Compute the Fisher-Rao distance
+  dist <- sqrt(sum(log(eigen_vals)^2))
+  
+  return(dist)
+}
 
 # Function to compute 2-Wasserstein distance between two zero-mean multivariate Gaussian distributions
 wasserstein_distance <- function(Sigma1, Sigma2) {
