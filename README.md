@@ -13,7 +13,9 @@ It contains two wrapper R scripts:
 
 For running the wrapper R scripts, 
 1. Clone or download the repository and set your R working directory to the project root.
-2. In an R console: `source("DC_wrapper_main.R")` or in a terminal: `Rscript DC_wrapper_main.R`
+2. Download the gait synchronization dataset from [https://github.com/deepcharles/gait-data] of Truong et al. (2019), "A data set for the study of human locomotion with inertial measurement units," Image Processing On Line, 9, 381–390.
+3. Set the file path to the downloaded gait data in `Applications/DC_gait.R` file before running the script.
+4. Run the wrapper scripts using either `source("DC_wrapper_main.R")` in an R console or `Rscript DC_wrapper_main.R` in a terminal.
 
 ## Details on reproducing results, figures, and tables 
 
@@ -27,7 +29,7 @@ In `simulations` folder:
 * `/DC_highdim.R`: Produces results corresponding to Figure S.4 in Section S.1.4.
 
 In `Applications` folder:
-* `/DC_gait.R`: Before running this script, set the file path to the gait synchronization data, available at [Truong et al. 2019, 'A data set for the study of human locomotion with inertial measurements units', Image Processing On Line 9, 381–390."][https://github.com/deepcharles/gait-data]. Running this R code will produce results corresponding to Table 2, Figure 6, Figure S.7 in Section 6.1 and Section S.7.
+* `/DC_gait.R`: Before running this script, set the file path to the gait synchronization data, available at [https://github.com/deepcharles/gait-data]. Running this R code will produce results corresponding to Table 2, Figure 6, Figure S.7 in Section 6.1 and Section S.7.
 * `/DC_energy.R`: Produces results corresponding to Figure 7 in Section 6.2.
 * `/DC_mnist.R`: Produces results corresponding to Table S.1 in Section S.2.1.
 * `/DC_temperature.R`: Produces results corresponding to Figure S.5 in Section S.2.2.
