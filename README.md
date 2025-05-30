@@ -34,10 +34,12 @@ In `Applications` folder:
 
 In `src` folder: 
 * `/DC_mainfunctions.R`: Contains all main functions necessary for the simulations and real data analysis.
-  
+
+In `Figures` folder: Contains all figures from the main manuscript and supplement saved as `.png` or `.pdf` files. All figures except Figures 1 depend on the `Figures_code` folder.
+
 In `Figures_code` folder: This folder contains R scripts that reproduce each figure in the main manuscript and supplement.
 * `/Figure2.R`-`/Figure7.R`: Generate Figure 2 through Figure 7 in main manuscript. The figures are automatically saved as PDF files.
 * `/FigureS1.R`-`/FigureS10.R`: Generate Figure S.1 through Figure S.10 in the Supplement. The figures are automatically saved as PDF files.
 
-In `Figures` folder: Contains all figures from the main manuscript and supplement saved as `.png` or `.pdf` files.
+
 
