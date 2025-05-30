@@ -13,7 +13,7 @@ It contains two wrapper R scripts:
 
 For running the wrapper R scripts, 
 1. Clone or download the repository and set your R working directory to the project root.
-2. Download the gait synchronization dataset from [link][https://github.com/deepcharles/gait-data] as referenced in Truong et al. (2019), "A data set for the study of human locomotion with inertial measurement units," Image Processing On Line, 9, 381–390.
+2. Download the gait synchronization dataset from [https://github.com/deepcharles/gait-data] as referenced in Truong et al. (2019), "A data set for the study of human locomotion with inertial measurement units," Image Processing On Line, 9, 381–390.
 3. Set the file path to the downloaded gait data in `Applications/DC_gait.R` file before running the script.
 4. Run the wrapper scripts using either `source("DC_wrapper_main.R")` in an R console or `Rscript DC_wrapper_main.R` in a terminal.
 
