@@ -18,13 +18,13 @@ For running the wrapper R scripts,
 ## Details on reproducing results, figures, and tables 
 
 In `simulations` folder:
-* `/DC_sphere_contam.R`: Running this R code will produce results corresponding to Figure 2 in Section 4.2.
-* `/DC_distribution.R`: Running this R code will produce results corresponding to Figure 3, 4 in Section 5.1.
-* `/DC_pointcloud.R`: Running this R code will produce results corresponding to Table 1 and Figure 5 in Section 5.2.
-* `/DC_spd.R`: Running this R code will produce results corresponding to Figure S.1 in Section S.1.1.
-* `/DC_sphere.R`: Running this R code will produce results corresponding to Figure S.2 in Section S.1.2.
-* `/DC_power_analysis.R`: Running this R code will produce results corresponding to Figure S.3 in Section S.1.3.
-* `/DC_highdim.R`: Running this R code will produce results corresponding to Figure S.4 in Section S.1.4.
+* `/DC_sphere_contam.R`: Produces results corresponding to Figure 2 in Section 4.2.
+* `/DC_distribution.R`: Produces results corresponding to Figure 3, 4 in Section 5.1.
+* `/DC_pointcloud.R`: Produces results corresponding to Table 1 and Figure 5 in Section 5.2.
+* `/DC_spd.R`: Produces results corresponding to Figure S.1 in Section S.1.1.
+* `/DC_sphere.R`: Produces results corresponding to Figure S.2 in Section S.1.2.
+* `/DC_power_analysis.R`: Produces results corresponding to Figure S.3 in Section S.1.3.
+* `/DC_highdim.R`: Produces results corresponding to Figure S.4 in Section S.1.4.
 
 In `Applications` folder:
 * `DC_gait.R`: Before running this script, set the file path to the gait synchronization data, available at [Truong et al. 2019, 'A data set for the study of human locomotion with inertial measurements units', Image Processing On Line 9, 381–390."][https://github.com/deepcharles/gait-data]. Running this R code will produce results corresponding to Table 2 and Figure 6 in Section 6.1. 
