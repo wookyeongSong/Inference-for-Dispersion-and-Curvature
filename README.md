@@ -1,11 +1,11 @@
 # Inference-for-Dispersion-and-Curvature
 
 
-### General Information
+## General Information
 
 This repository contains the implementation for the paper **"Inference for Dispersion and Curvature of Random Objects"** which were run using R 4.3.1. It provides two one-click *wrapper* R scripts that reproduce every table and figure in the main manuscript and the supplement.
 
-### Wrapper R scripts
+## Wrapper R scripts
 
 It contains two wrapper R scripts:
 *	`DC_wrapper_main.R`: Executes all analyses presented in the main paper and reproduces all the Tables 1-2 and corresponding Figures 2-7, which are saved as PDF files.
@@ -15,17 +15,19 @@ For running the wrapper R scripts,
 1. Clone or download the repository and set your R working directory to the project root.
 2. In an R console: `source("DC_wrapper_main.R")` or in a terminal: `Rscript DC_wrapper_main.R`
   
-## Supplementary results
-source("DC_wrapper_supplement.R")
-
-the working directory needs to be set to the directory where you saved this repository. It can be run `source("DC_wrapper_main.R")` in R console or `Rscript DC_wrapper_main.R` in terminal.
+## Details
 
 In `src` Folder: 
 * `/DC_mainfunctions.R`: Contains all main functions necessary for the simulations and real data analysis.
 
-In `Figures_code` Folder: This folder contains R scripts that reproduce all figures in the main manuscript and supplementary materials.
+In `Figures_code` Folder: This folder contains R scripts that reproduce all figures in the main manuscript and supplement.
 * `Figure2.R`-`Figure7.R`: Generate Figure 2 through Figure 7 in main manuscript. The figures are automatically saved as PDF files.
 * `FigureS1.R`-`FigureS10.R`: Generate Figure S.1 through Figure S.10 in the Supplement. The figures are automatically saved as PDF files.
+
+In `Figures` Folder: This folder contains all Figures in the main manuscript and supplement as png or pdf files.
+
+In `
+
 
 ### Libraries and dependencies used by the code
 
