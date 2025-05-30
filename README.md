@@ -1,6 +1,8 @@
 # Inference-for-Dispersion-and-Curvature
 
-This repository contains the implementation for the paper "Inference for Dispersion and Curvature of Random Objects" in R.
+This repository contains the implementation for the paper "Inference for Dispersion and Curvature of Random Objects" which were run using R 4.3.1. It contains two wrapper R scripts:
+*	`DC_wrapper_main.R`: Executes all analyses presented in the main paper and generates all the tables and corresponding figures, which are saved as PDF files.
+*	`DC_wrapper_supplement.R`: Executes all additional simulations and real data analyses in the supplementary materials and produces the table and the corresponding figures, which are saved as PDF files.
 
 ### Supporting software requirements
 
