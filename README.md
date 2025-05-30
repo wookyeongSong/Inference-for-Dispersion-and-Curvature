@@ -13,8 +13,7 @@ It contains two wrapper R scripts:
 
 For running the wrapper R scripts, 
 1. Clone or download the repository and set your R working directory to the project root.
-2. In an R console: source("DC_wrapper_main.R")
-or from a terminal: Rscript DC_wrapper_main.R
+2. In an R console: `source("DC_wrapper_main.R")` or in a terminal: `Rscript DC_wrapper_main.R`
   
 ## Supplementary results
 source("DC_wrapper_supplement.R")
