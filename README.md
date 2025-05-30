@@ -14,19 +14,30 @@ It contains two wrapper R scripts:
 For running the wrapper R scripts, 
 1. Clone or download the repository and set your R working directory to the project root.
 2. In an R console: `source("DC_wrapper_main.R")` or in a terminal: `Rscript DC_wrapper_main.R`
-  
-## Details
 
-In `src/` Folder: 
-* `DC_mainfunctions.R`: Contains all main functions necessary for the simulations and real data analysis.
+## Details on reproducing results, figures, and tables 
 
-In `Figures_code/` Folder: This folder contains R scripts that reproduce all figures in the main manuscript and supplement.
-* `Figure2.R`-`Figure7.R`: Generate Figure 2 through Figure 7 in main manuscript. The figures are automatically saved as PDF files.
-* `FigureS1.R`-`FigureS10.R`: Generate Figure S.1 through Figure S.10 in the Supplement. The figures are automatically saved as PDF files.
+In `simulations` folder:
+* `/DC_sphere_contam.R`: Running this R code will produce results corresponding to Figure 2 in Section 4.2.
+* `/DC_distribution.R`: Running this R code will produce results corresponding to Figure 3, 4 in Section 5.1.
+* `/DC_pointcloud.R`: Running this R code will produce results corresponding to Table 1 and Figure 5 in Section 5.2.
+* `/DC_spd.R`: Running this R code will produce results corresponding to Figure S.1 in Section S.1.1.
+* `/DC_sphere.R`: Running this R code will produce results corresponding to Figure S.2 in Section S.1.2.
+* `/DC_power_analysis.R`: Running this R code will produce results corresponding to Figure S.3 in Section S.1.3.
+* `/DC_highdim.R`: Running this R code will produce results corresponding to Figure S.4 in Section S.1.4.
 
-In `Figures` Folder: This folder contains all Figures in the main manuscript and supplement as png or pdf files.
+In `Applications` folder:
+* `DC_gait.R`: Before running this script, set the file path to the gait synchronization data, available at [Truong et al. 2019, 'A data set for the study of human locomotion with inertial measurements units', Image Processing On Line 9, 381–390."][https://github.com/deepcharles/gait-data]. Running this R code will produce results corresponding to Table 2 and Figure 6 in Section 6.1. 
 
-In `
+
+In `Figures_code` folder: This folder contains R scripts that reproduce each figure in the main manuscript and supplement.
+* `/Figure2.R`-`/Figure7.R`: Generate Figure 2 through Figure 7 in main manuscript. The figures are automatically saved as PDF files.
+* `/FigureS1.R`-`/FigureS10.R`: Generate Figure S.1 through Figure S.10 in the Supplement. The figures are automatically saved as PDF files.
+
+In `Figures` folder: Contains all Figures in the main manuscript and supplement as png or pdf files.
+
+In `src` folder: 
+* `/DC_mainfunctions.R`: Contains all main functions necessary for the simulations and real data analysis.
 
 
 ### Libraries and dependencies used by the code
