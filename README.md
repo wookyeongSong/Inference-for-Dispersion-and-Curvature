@@ -3,7 +3,7 @@
 
 ## General Information
 
-This repository contains the implementation for the paper **"Inference for Dispersion and Curvature of Random Objects"** which were run using R 4.3.1. It provides two one-click *wrapper* R scripts that reproduce every table and figure in the main manuscript and the supplement.
+This repository contains the implementation for the paper **"Inference for Dispersion and Curvature of Random Objects"** which were run using R 4.3.1. It provides two *wrapper* R scripts that reproduce every table and figure in the main manuscript and the supplement.
 
 ## Wrapper R scripts
 
